@@ -10,3 +10,4 @@
 /home/max/dev/DungeonSlime/MonoGameLibrary/obj/Debug/net9.0/refint/MonoGameLibrary.dll
 /home/max/dev/DungeonSlime/MonoGameLibrary/obj/Debug/net9.0/MonoGameLibrary.pdb
 /home/max/dev/DungeonSlime/MonoGameLibrary/obj/Debug/net9.0/ref/MonoGameLibrary.dll
+/home/max/dev/DungeonSlime/MonoGameLibrary/obj/Debug/net9.0/MonoGameLibrary.sourcelink.json
