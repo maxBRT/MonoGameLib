@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using MonoGameLibrary.Audio;
 using MonoGameLibrary.Input;
 
 namespace MonoGameLibrary;
@@ -35,11 +36,17 @@ public class Core : Game
     /// Gets the content manager used to load global assets.
     /// </summary>
     public static new ContentManager Content { get; private set; }
+    
     /// <summary>
     /// Gets a reference to the input management system.
     /// </summary>
     public static InputManager Input { get; private set; }
-   
+    
+  /// <summary>
+    /// Gets a reference to the audio control system.
+    /// </summary>
+    public static AudioController Audio { get; private set; }  
+  
     public bool ExitOnEscape { get; set; } = true;
     
     /// <summary>
@@ -86,8 +93,19 @@ public class Core : Game
         
         // Create the input manager.
         Input = new InputManager();
+        
+       // Create the audio controller.
+       Audio = new AudioController(); 
     }
+    
+    protected override void UnloadContent()
+    {
+        // Dispose of the audio controller.
+        Audio.Dispose();
 
+        base.UnloadContent();
+    }
+    
     protected override void Initialize()
     {
         base.Initialize();
@@ -104,7 +122,10 @@ public class Core : Game
     {
         // Update the input manager.
         Input.Update(gameTime);
-
+    
+        // Update the audio controller.
+        Audio.Update();
+        
         if (ExitOnEscape && Input.Keyboard.IsKeyDown(Keys.Escape))
         {
             Exit();
