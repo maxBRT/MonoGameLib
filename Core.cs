@@ -32,7 +32,7 @@ public class Core : Game
     /// <summary>
     /// Gets the graphics device used to create graphical resources and perform primitive rendering.
     /// </summary>
-    public static new GraphicsDevice GraphicsDevice { get; private set; }
+    public new static GraphicsDevice GraphicsDevice { get; private set; }
 
     /// <summary>
     /// Gets the sprite batch used for all 2D rendering.
@@ -42,17 +42,23 @@ public class Core : Game
     /// <summary>
     /// Gets the content manager used to load global assets.
     /// </summary>
-    public static new ContentManager Content { get; private set; }
-    
+    public new static ContentManager Content { get; private set; }
+
     /// <summary>
-    /// Gets a reference to the input management system.
+    /// Gets a reference to to the input management system.
     /// </summary>
     public static InputManager Input { get; private set; }
 
+    /// <summary>
+    /// Gets or Sets a value that indicates if the game should exit when the esc key on the keyboard is pressed.
+    /// </summary>
+    public static bool ExitOnEscape { get; set; }
+
+    /// <summary>
     /// Gets a reference to the audio control system.
     /// </summary>
-    public bool ExitOnEscape { get; set; } = true;
-    
+    public static AudioController Audio { get; private set; }
+
     /// <summary>
     /// Creates a new Core instance.
     /// </summary>
@@ -74,7 +80,7 @@ public class Core : Game
         // Create a new graphics device manager.
         Graphics = new GraphicsDeviceManager(this);
 
-        // Set the graphics defaults.
+        // Set the graphics defaults
         Graphics.PreferredBackBufferWidth = width;
         Graphics.PreferredBackBufferHeight = height;
         Graphics.IsFullScreen = fullScreen;
@@ -82,7 +88,7 @@ public class Core : Game
         // Apply the graphic presentation changes.
         Graphics.ApplyChanges();
 
-        // Set the window title.
+        // Set the window title
         Window.Title = title;
 
         // Set the core's content manager to a reference of the base Game's
@@ -132,8 +138,8 @@ public class Core : Game
 
         // Update the audio controller.
         Audio.Update();
-        
-        if (ExitOnEscape && Input.Keyboard.IsKeyDown(Keys.Escape))
+
+        if (ExitOnEscape && Input.Keyboard.WasKeyJustPressed(Keys.Escape))
         {
             Exit();
         }
