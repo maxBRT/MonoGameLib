@@ -48,12 +48,9 @@ public class Core : Game
     /// Gets a reference to the input management system.
     /// </summary>
     public static InputManager Input { get; private set; }
-    
-  /// <summary>
+
     /// Gets a reference to the audio control system.
     /// </summary>
-    public static AudioController Audio { get; private set; }  
-  
     public bool ExitOnEscape { get; set; } = true;
     
     /// <summary>
@@ -97,22 +94,11 @@ public class Core : Game
 
         // Mouse is visible by default.
         IsMouseVisible = true;
-        
-        // Create the input manager.
-        Input = new InputManager();
-        
-       // Create the audio controller.
-       Audio = new AudioController(); 
-    }
-    
-    protected override void UnloadContent()
-    {
-        // Dispose of the audio controller.
-        Audio.Dispose();
 
-        base.UnloadContent();
+        // Exit on escape is true by default
+        ExitOnEscape = true;        
     }
-    
+
     protected override void Initialize()
     {
         base.Initialize();
@@ -123,13 +109,27 @@ public class Core : Game
 
         // Create the sprite batch instance.
         SpriteBatch = new SpriteBatch(GraphicsDevice);
+
+        // Create a new input manager.
+        Input = new InputManager();
+
+        // Create a new audio controller.
+        Audio = new AudioController();
     }
-    
+
+    protected override void UnloadContent()
+    {
+        // Dispose of the audio controller.
+        Audio.Dispose();
+
+        base.UnloadContent();
+    }
+
     protected override void Update(GameTime gameTime)
     {
         // Update the input manager.
         Input.Update(gameTime);
-    
+
         // Update the audio controller.
         Audio.Update();
         
